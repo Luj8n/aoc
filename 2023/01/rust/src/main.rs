@@ -35,22 +35,22 @@ fn part2(input: &str) -> String {
   input
     .lines()
     .map(|line| {
-      let first = nums
+      let first: usize = nums
         .clone()
         .filter_map(|(i, s)| line.match_indices(s).next().map(|(a, _)| (a, i)))
-        .min_by_key(|(a, _)| *a);
-
-      if first.is_none() {
-        return 0;
-      }
+        .min_by_key(|(a, _)| *a)
+        .unwrap()
+        .1;
 
       let last = nums
         .clone()
         .filter_map(|(i, s)| line.rmatch_indices(s).next().map(|(a, _)| (a, i)))
-        .max_by_key(|(a, _)| *a);
+        .max_by_key(|(a, _)| *a)
+        .unwrap()
+        .1;
 
-      let f = first.unwrap().1 % 9 + 1;
-      let l = last.unwrap().1 % 9 + 1;
+      let f = first % 9 + 1;
+      let l = last % 9 + 1;
 
       f * 10 + l
     })
