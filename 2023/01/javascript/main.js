@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const input = fs.readFileSync("../input.txt").toString();
+const input = fs.readFileSync("../input.txt").toString().trim();
 
 console.log(`Part 1: ${part1()}`);
 console.log(`Part 2: ${part2()}`);
@@ -10,7 +10,6 @@ function part1() {
     .split("\n")
     .map((x) => [...x].map(Number).filter((c) => !isNaN(c)))
     .map((x) => {
-      if (x.length == 0) return 0;
       let f = x[0];
       let l = x[x.length - 1];
       return f * 10 + l;
@@ -44,7 +43,6 @@ function part2() {
     .split("\n")
     .map((line) => {
       let first = nums.map((n, i) => [line.indexOf(n), i]).filter((x) => x[0] != -1);
-      if (first.length == 0) return 0;
       first.sort((a, b) => a[0] - b[0]);
       let last = nums.map((n, i) => [line.lastIndexOf(n), i]).filter((x) => x[0] != -1);
       last.sort((a, b) => b[0] - a[0]);
